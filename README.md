@@ -17,7 +17,9 @@ Serial peripheral interface (SPI) is one of the most widely used interfaces betw
 - main out, subnode in (MOSI)
 - main in, subnode out (MISO)
 
-## SPI_SLAVE Implimentaion:
+## SPI_SLAVE.v: 
+SPI Slave interface
+- ports
 
 ![Untitled Document_page-0001 (1) (1)](https://github.com/user-attachments/assets/f1af38d3-a52d-4917-b623-b3c29918c631)
 
