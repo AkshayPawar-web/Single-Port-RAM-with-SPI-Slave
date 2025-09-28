@@ -47,6 +47,25 @@ Connects the SPI Slave and RAM modules.
 ![FSM__page-0001 (1)](https://github.com/user-attachments/assets/48b3fd07-799d-4cdd-8e5b-62510dc279f6)
 
 
+The provided image illustrates the 
+Finite State Machine (FSM) Diagram for the SPI_SLAVE module. The FSM controls the sequence of operations for interacting with the RAM via the SPI protocol. The machine starts in the IDEAL (or IDLE) state, which is also the state entered upon RESET or when the Slave Select (SS_n) signal is high (SS_n=1). When the Master initiates communication by pulling SS_n low (SS_n=0), the FSM transitions from IDEAL to the CHEK-CMD state. In CHEK-CMD, the FSM evaluates the first incoming bit on the Master Out Slave In (MOSI) line to determine the type of operation. If MOSI=0, it's a Write operation, and the FSM moves to the WRITE state, where the address and/or data are sent to the RAM. If MOSI=1, it's a Read operation, and the FSM moves to the READ-ADD state to receive the read address. After receiving the address in READ-ADD, the FSM can transition to the READ-DATA state, where the requested data is sent back to the Master via the MISO line. All operational states (WRITE, READ-ADD, READ-DATA) are exited, transitioning back to the IDEAL state, when the SS_n signal is de-asserted (pulled high, SS_n=1)
+
+# Addittional Notes
+* A .do file is included to simplify the simulation setup.
+* The design code is extensively commented to improve readability and understanding.
+* A comprehensive testbench (SPI_Wrapper_tb.v) is provided to test various scenarios including writing and reading data.
+# Repository Structure
+Constraints_File
+* DO_File
+* Documentation_PDF
+* Images
+* Netlist_File
+* RTL_Code
+* Run_file
+* Schematics
+* Simulation
+* README.md
+
 
 
 
