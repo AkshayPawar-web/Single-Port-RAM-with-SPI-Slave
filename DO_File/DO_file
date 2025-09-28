@@ -1,0 +1,41 @@
+onerror {resume}
+quietly WaveActivateNextPane {} 0
+add wave -noupdate /SPI_Wrapper_tb/clk
+add wave -noupdate /SPI_Wrapper_tb/ss_n
+add wave -noupdate /SPI_Wrapper_tb/MOSI
+add wave -noupdate /SPI_Wrapper_tb/rst_n
+add wave -noupdate /SPI_Wrapper_tb/MISO
+add wave -noupdate /SPI_Wrapper_tb/dut/clk
+add wave -noupdate /SPI_Wrapper_tb/dut/ss_n
+add wave -noupdate /SPI_Wrapper_tb/dut/MOSI
+add wave -noupdate /SPI_Wrapper_tb/dut/rst_n
+add wave -noupdate /SPI_Wrapper_tb/dut/MISO
+add wave -noupdate -expand /SPI_Wrapper_tb/dut/rxdata
+add wave -noupdate -expand /SPI_Wrapper_tb/dut/txdata
+add wave -noupdate /SPI_Wrapper_tb/dut/rx_valid
+add wave -noupdate /SPI_Wrapper_tb/dut/tx_valid
+add wave -noupdate -format Analog-Step -height 500 -radix decimal /#vsim_capacity#/totals
+add wave -noupdate /#vsim_capacity#/classes
+add wave -noupdate /#vsim_capacity#/qdas
+add wave -noupdate /#vsim_capacity#/assertions
+add wave -noupdate /#vsim_capacity#/covergroups
+add wave -noupdate /#vsim_capacity#/solver
+add wave -noupdate /#vsim_capacity#/memories
+TreeUpdate [SetDefaultTree]
+WaveRestoreCursors {{Cursor 1} {369 ps} 0}
+quietly wave cursor active 1
+configure wave -namecolwidth 208
+configure wave -valuecolwidth 100
+configure wave -justifyvalue left
+configure wave -signalnamewidth 0
+configure wave -snapdistance 10
+configure wave -datasetprefix 0
+configure wave -rowmargin 4
+configure wave -childrowmargin 2
+configure wave -gridoffset 0
+configure wave -gridperiod 1
+configure wave -griddelta 40
+configure wave -timeline 0
+configure wave -timelineunits ps
+update
+WaveRestoreZoom {0 ps} {947 ps}
