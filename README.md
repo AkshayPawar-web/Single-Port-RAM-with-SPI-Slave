@@ -57,14 +57,16 @@ Finite State Machine (FSM) Diagram for the SPI_SLAVE module. The FSM controls th
 # Repository Structure
 Constraints_File
 * DO_File
-* Documentation_PDF
 * Images
 * Netlist_File
 * RTL_Code
-* Run_file
 * Schematics
 * Simulation
 * README.md
+# Contact Me!
+www.linkedin.com/in/
+akahay-pawar-73a656258
+
 
 
 
