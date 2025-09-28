@@ -23,6 +23,12 @@ SPI Slave interface
 
 ![Untitled Document_page-0001 (1) (1)](https://github.com/user-attachments/assets/f1af38d3-a52d-4917-b623-b3c29918c631)
 
+## RAM.v
+
+![Untitled Document_page-0001 (4) (1)](https://github.com/user-attachments/assets/9de29045-1827-4af0-aa3e-290fa255346a)
+
+
+
 
 
 
