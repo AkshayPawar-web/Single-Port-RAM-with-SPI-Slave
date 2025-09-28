@@ -44,6 +44,10 @@ Connects the SPI Slave and RAM modules.
 # SPI FSM Diagram
 
 
+![FSM__page-0001 (1)](https://github.com/user-attachments/assets/48b3fd07-799d-4cdd-8e5b-62510dc279f6)
+
+
+
 
 
 
