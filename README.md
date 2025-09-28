@@ -27,8 +27,8 @@ SPI Slave interface
 Implements a single-port asynchronous RAM.
 * Parameter.
   
-  --  MEM_DEPTH: Memory depth, default is 256.
-  -- ADDR_SIZE: Address size, default is 8 bits.
+  ** MEM_DEPTH: Memory depth, default is 256.
+  **ADDR_SIZE: Address size, default is 8 bits.
 
 
 * Ports
