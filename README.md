@@ -26,7 +26,14 @@ clk	Input	1 bit	Clock
 MISO	Output	1 bit	Data Output
 rx_valid	Output	1 bit	Control for Output Data
 rx_data	Output	10 bits	Output Data for SPI Slave
- 
+
+### How the markdown table is structured
+*   **Header row**: The first row contains the column headers, separated by pipe characters (`|`).
+*   **Alignment row**: The second row, consisting of hyphens (`-`) and colons (`:`), defines the alignment for each column.
+    *   `| :--- |` indicates a left-aligned column.
+    *   `| :---: |` would center the text in a column.
+    *   `| ---: |` would right-align the text.
+*   **Data rows**: All subsequent rows contain the table data, with cells separated by pipes. 
 
 
 
