@@ -1,0 +1,137 @@
+# RTL Code for SPI_SLAVE
+
+module SPI_SLAVE(
+    input MOSI , tx_valid , clk , rst_n , ss_n ,
+    input [7:0] tx_data ,
+    output reg  MISO , rx_valid , 
+    output reg [9:0] rx_data  
+);
+localparam IDLE = 3'b000,
+           CHK_CMD = 3'b001,
+           WRITE = 3'b010,
+           READ_ADD = 3'b011,
+           READ_DATA = 3'b100;
+
+reg [2:0] cs , ns ; ///current state and next state           
+reg ADD_DATA_checker ; 
+reg [3:0] counter1 ; //counter to fill the rx_data 
+reg [2:0] counter2 ; // counter for the READ_DATA
+reg [9:0] bus ; 
+
+//state memory 
+always @(posedge clk)
+begin
+    if(~rst_n) 
+        cs <= IDLE;
+    else 
+        cs <= ns ;
+end
+
+//next state logic
+always @(*) begin
+    ns = cs ;
+    case(cs)
+        IDLE : begin
+            if(ss_n)
+                ns = IDLE;
+            else    
+                ns = CHK_CMD;
+        end
+        CHK_CMD : begin
+            if(ss_n)
+                ns = IDLE;
+            else begin
+                if((~ss_n) && (MOSI == 0))
+                    ns = WRITE;
+                else if ((~ss_n) && (MOSI == 1) && (ADD_DATA_checker == 1))
+                    ns = READ_ADD;
+                else if ((~ss_n) && (MOSI == 1) && (ADD_DATA_checker == 0))
+                    ns = READ_DATA;
+            end
+        end
+        WRITE : begin
+            if(ss_n || counter1 == 4'b1111) 
+                ns = IDLE;
+            else 
+                ns = WRITE;
+        end
+        READ_ADD : begin 
+            if(ss_n || counter1 == 4'b1111)
+                ns = IDLE;     
+            else
+                ns = READ_ADD;
+        end
+        READ_DATA : begin        
+            if(ss_n)
+                ns = IDLE;
+            else
+                ns = READ_DATA;
+        end
+    endcase
+end
+
+//output logic 
+always @(posedge clk or negedge rst_n) begin
+    if (~rst_n) begin
+        counter1 <= 9; //as the first bit entered will be the MSB
+        counter2 <= 7; // as the first bit outted will be the MSB
+        ADD_DATA_checker <= 1; 
+        bus <= 0;
+        rx_data <= 0;
+        rx_valid <= 0; 
+        MISO  <= 0; 
+    end
+    //IDLE state
+    else begin
+        if(cs == IDLE) begin
+            rx_valid <= 0;
+            counter1 <= 9 ; 
+            counter2 <= 7 ; 
+        end
+        //WRITE state
+        else if(cs == WRITE) begin
+            if (counter1 >= 0)begin
+                bus[counter1] <= MOSI;
+                counter1 <= counter1 - 1;   //decrement the counter 
+            end
+            if(counter1 == 4'b1111) begin
+                rx_valid = 1;
+                rx_data <= bus ; //sending the parallel data to the RAM
+            end
+        end
+        //READ_ADD state  
+        else if (cs == READ_ADD) begin
+            if (counter1 >= 0)begin
+                bus[counter1] <= MOSI;
+                counter1 <= counter1 - 1;   //decrement the counter 
+            end
+            if(counter1 == 4'b1111) begin
+                rx_valid <= 1;
+                rx_data <= bus ; //sending the parallel data to the RAM
+                ADD_DATA_checker <= 0; 
+            end
+        end
+        //READ_DATA state  
+        else if (cs == READ_DATA) begin
+            if (counter1 >= 0)begin
+                bus[counter1] <= MOSI;
+                counter1 <= counter1 - 1;   //decrement the counter 
+            end
+            if(counter1 == 4'b1111) begin
+                rx_valid <= 1;
+                rx_data <= bus ; //sending the parallel data to the RAM
+                counter1 <= 9 ; 
+            end
+            if(rx_valid  == 1) rx_valid <= 0; 
+            if(tx_valid==1 && counter2 >=0)begin
+                MISO <= tx_data[counter2] ; 
+                counter2 <= counter2 - 1 ;
+            end
+            if(counter2 == 3'b111)begin
+                ADD_DATA_checker <= 1; 
+            end
+        end
+    end
+
+end
+endmodule
