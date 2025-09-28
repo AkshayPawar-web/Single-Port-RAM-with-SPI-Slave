@@ -1,1 +1,1 @@
-# Single-Port-RAM-with-SPI-Slave
+# SPI Slave with Single Port RAM
