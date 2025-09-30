@@ -55,13 +55,14 @@ Finite State Machine (FSM) Diagram for the SPI_SLAVE module. The FSM controls th
 * The design code is extensively commented to improve readability and understanding.
 * A comprehensive testbench (SPI_Wrapper_tb.v) is provided to test various scenarios including writing and reading data.
 # Repository Structure
-Constraints_File
+* Constraints_File
 * DO_File
+* Documentaion
 * Images
 * Netlist_File
-* RTL_Code
 * Schematics
 * Simulation
+* RTL_Code
 * README.md
 # Contact Me!
 www.linkedin.com/in/
